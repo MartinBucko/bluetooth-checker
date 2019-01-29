@@ -1,0 +1,23 @@
+{
+  "name": "bluetooth-checker",
+  "version": "0.1.0",
+  "description": "Bluetoot scan devices, check last visible state and do some actions if devices is visible again.",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Martin Bucko <bucko@treecom.net>",
+  "license": "MIT",
+  "dependencies": {
+    "async": "^2.6.1",
+    "lodash": "^4.17.11",
+    "luxon": "^1.10.0",
+    "noble": "^1.9.1"
+  },
+  "devDependencies": {
+    "@types/lodash": "^4.14.120",
+    "@types/luxon": "^1.10.2"
+  }
+}
