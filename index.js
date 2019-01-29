@@ -15,7 +15,6 @@ const {
   watchTimeout,
   watchMinRssi,
   watchCmd,
-  watchCmd,
   serviceUUIDs,
   allowDuplicates,
   filterProps
