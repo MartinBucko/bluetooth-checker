@@ -12,7 +12,7 @@
   "license": "MIT",
   "dependencies": {
     "async": "^3.1.0",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.19",
     "luxon": "^1.17.2",
     "noble": "^1.9.1"
   },
