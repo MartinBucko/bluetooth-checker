@@ -33,9 +33,9 @@ const logger = on => data =>
     typeof data === 'string'
       ? data
       : _.chain(data)
-          .omit(filterProps)
-          .omitBy(_.isFunction)
-          .value()
+        .omit(filterProps)
+        .omitBy(_.isFunction)
+        .value()
   );
 
 const loggerDated = props => console.log(logTime(), JSON.stringify(props));

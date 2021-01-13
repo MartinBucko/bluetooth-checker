@@ -11,19 +11,19 @@ module.exports = function explore(peripheral) {
   //   process.exit(0);
   // });
 
-  peripheral.connect(function(error) {
+  peripheral.connect(function (error) {
     if (error) return error;
 
-    peripheral.discoverServices([], function(error, services) {
+    peripheral.discoverServices([], function (error, services) {
       if (error) return error;
 
       var serviceIndex = 0;
 
       async.whilst(
-        function() {
+        function () {
           return serviceIndex < services.length;
         },
-        function(callback) {
+        function (callback) {
           var service = services[serviceIndex];
           var serviceInfo = service.uuid;
 
@@ -32,14 +32,14 @@ module.exports = function explore(peripheral) {
           }
           console.log(serviceInfo);
 
-          service.discoverCharacteristics([], function(error, characteristics) {
+          service.discoverCharacteristics([], function (error, characteristics) {
             var characteristicIndex = 0;
 
             async.whilst(
-              function() {
+              function () {
                 return characteristicIndex < characteristics.length;
               },
-              function(callback) {
+              function (callback) {
                 var characteristic = characteristics[characteristicIndex];
                 var characteristicInfo = '  ' + characteristic.uuid;
 
@@ -48,23 +48,23 @@ module.exports = function explore(peripheral) {
                 }
 
                 async.series([
-                  function(callback) {
-                    characteristic.discoverDescriptors(function(
+                  function (callback) {
+                    characteristic.discoverDescriptors(function (
                       error,
                       descriptors
                     ) {
                       async.detect(
                         descriptors,
-                        function(descriptor, callback) {
+                        function (descriptor, callback) {
                           if (descriptor.uuid === '2901') {
                             return callback(descriptor);
                           } else {
                             return callback();
                           }
                         },
-                        function(userDescriptionDescriptor) {
+                        function (userDescriptionDescriptor) {
                           if (userDescriptionDescriptor) {
-                            userDescriptionDescriptor.readValue(function(
+                            userDescriptionDescriptor.readValue(function (
                               error,
                               data
                             ) {
@@ -81,13 +81,13 @@ module.exports = function explore(peripheral) {
                       );
                     });
                   },
-                  function(callback) {
+                  function (callback) {
                     characteristicInfo +=
                       '\n    properties  ' +
                       characteristic.properties.join(', ');
 
                     if (characteristic.properties.indexOf('read') !== -1) {
-                      characteristic.read(function(error, data) {
+                      characteristic.read(function (error, data) {
                         if (data) {
                           var string = data.toString('ascii');
 
@@ -104,21 +104,21 @@ module.exports = function explore(peripheral) {
                       callback();
                     }
                   },
-                  function() {
+                  function () {
                     console.log(characteristicInfo);
                     characteristicIndex++;
                     callback();
                   }
                 ]);
               },
-              function(error) {
+              function (error) {
                 serviceIndex++;
                 callback();
               }
             );
           });
         },
-        function(err) {
+        function (err) {
           peripheral.disconnect();
         }
       );

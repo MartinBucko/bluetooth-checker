@@ -1,6 +1,6 @@
 # Node.js Bluetooth Checker
 
-Bluetoot scan devices, check last visible state and call some scripts if device is visible again.
+Bluetooth scan devices, check last visible state and call some scripts if device is visible again.
 
 ## Based on
 
